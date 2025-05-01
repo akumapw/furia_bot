@@ -32,3 +32,7 @@ async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
     )
     return FAN_QUESTION
+
+async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    response = update.message.text_data['name']
+    
