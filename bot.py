@@ -33,11 +33,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data['name'] = update.message.text
     logger.info("Nome: %s", update.message.text)
-    reply_keyboard = [['Sim', 'Não']]
-
+    logger.info("Nome: %s", update.message.text)
+    keyboard = [
+        [InlineKeyboardButton("Sim", callback_data='fan_yes')],
+        [InlineKeyboardButton("Não", callback_data='fan_no')]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
         f"Prazer em conhecê-lo, {update.message.text}! Você também é um SUPER FURIOSO ?",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+        reply_markup=reply_markup
     )
     return FAN_QUESTION
 
