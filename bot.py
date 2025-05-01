@@ -46,16 +46,26 @@ async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return FAN_QUESTION
 
 async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    response = update.message.text.lower()
+    query = update.callback_query
+    await query.answer()
+    choice = query.data
     name = context.user_data['name']
-    if 'sim' in response or 'yes' in response:
-        await update.message.reply_text(f"Que ótimo, {name}! A Furia é incrível, né? -_- a gente têm os jogadores mais habilidosos no nosso elenco como o lendário FALLEN ! e o KSCERATO ")
+    if choice == 'fan_yes':
+        await query.edit_message_text(f"Que Bom, {name}! A Super Fúria é incrível né? -_- Nosso time tem os melhores jogadores como o lendário FalleN e KSCERATO.")
     else:
-        await update.message.reply_text(f"Tudo bem, {name}.Talvez você vire fã depois de assistir aos jogos do nosso super time. Eles são muito bons!")
+        await query.edit_message_text(f"Tudo bem, {name}. Talvez você vire fã depois de assistir aos jogos deles. Eles são muito bons!")
     fact = random.choice(facts)
-    await update.message.reply_text(f"A propósito, você sabia que {fact}")
-    await update.message.reply_text("Quer saber mais sobre a Fúria? Confira o site oficial: https://www.furia.gg/ ou siga no X: @FURIA")
-    return ConversationHandler.END
+    await query.message.reply_text(f"A propósito, você sabia que {fact}")
+    await query.message.reply_text("Quer saber mais sobre a Fúria? Confira o site oficial!: https://www.furia.gg/ ou siga no X: @FURIA")
+    Keyboard = [
+        [InlineKeyboardButton("Últimos resultados", callback_data='results')]
+        [InlineKeyboardButton("Jogadores", callback_data='players')],
+        [InlineKeyboardButton("Notícias", callback_data='news')],
+        [InlineKeyboardButton("Nada, obrigado", callback_data='end')]
+    ]
+    reply_markup = InlineKeyboardMarkup(Keyboard)
+    await query.message.reply_text("O que você gostaria de saber sobre Fúria?", reply_markup=reply_markup)
+    return OPTIONS
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await update.message.reply_text('Conversa Cancelada.')
