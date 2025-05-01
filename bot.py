@@ -19,3 +19,16 @@ facts = [
     "Nossa Furia participou de vários torneios internacionais e tem uma grande base de fãs."
 ]
 
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    await update.message.reply_text("Oi! Sou um grande fã da Fúria no CS:GO. Qual é o seu nome?")
+    return NAME
+
+async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    context.user_data['name'] = update.message.text
+    logger.info("Nome: %s", update.message.text)
+    reply_keyboard = [['Sim', 'Não']]
+    await update.message.reply_text(
+        f"Prazer em conhecê-lo, {update.message.text}! Você também é um SUPER FURIOSO ?",
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    )
+    return FAN_QUESTION
