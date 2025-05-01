@@ -1,13 +1,13 @@
 import logging
 import random
-from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
-from telegram.ext import Application, CommandHandler, ContextTypes, ConversationHandler, MessageHandler, filters
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application, CommandHandler, ContextTypes, ConversationHandler, CallbackQueryHandler, MessageHandler, filters
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-NAME, FAN_QUESTION = range(2)
+NAME, FAN_QUESTION, OPTIONS = range(3)
 
 facts = [
     "Fato Cúrioso A Super Furia foi fundada em agosto de 2017 no Brasil",
@@ -17,6 +17,15 @@ facts = [
     "Fato Cúrioso Nossa Furia participou de vários torneios internacionais e tem uma grande base de fãs."
 ]
 
+def get_recent_matches():
+    return [
+        "2025-04-20: Fúiria vs Team Liquid - Vitória 2-0",
+        "2025-04-15: Fúria vs G2 Esports - Derrota 1-2",
+        "2025-04-10: Fúria vs MIBR - Vitória 2-1",
+    ]
+
+players = ["FalleN", "Chelo", "Yuutih", "KSCERATO", "Skullz"]
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await update.message.reply_text("Oi! Sou um grande fã da Fúria no CS:GO. Qual é o seu nome?")
     return NAME
@@ -25,6 +34,7 @@ async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data['name'] = update.message.text
     logger.info("Nome: %s", update.message.text)
     reply_keyboard = [['Sim', 'Não']]
+
     await update.message.reply_text(
         f"Prazer em conhecê-lo, {update.message.text}! Você também é um SUPER FURIOSO ?",
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
