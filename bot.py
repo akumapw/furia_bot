@@ -35,4 +35,11 @@ async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     response = update.message.text_data['name']
-    
+    if 'sim' in response or 'yes' in response:
+        await update.message.reply_text(f"Que ótimo, {name}! A Furia é incrível, né? -_- a gente têm os jogadores mais habilidosos no nosso elenco como o lendário FALLEN ! e o KSCERATO ")
+    else:
+        await update.message.reply_text(f"Tudo bem, {name}.Talvez você vire fã depois de assistir aos jogos do nosso super time. Eles são muito bons!")
+    fact = random.choices(facts)
+    await update.message.reply_text(f"A propósito, você sabia que {fact}")
+    await update.message.reply_text("Quer saber mais sobre a Fúria? Confira o site oficial: https://www.furia.gg/ ou siga no X: @FURIA")
+    return ConversationHandler.END
