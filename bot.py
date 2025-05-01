@@ -43,3 +43,23 @@ async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     await update.message.reply_text(f"A propósito, você sabia que {fact}")
     await update.message.reply_text("Quer saber mais sobre a Fúria? Confira o site oficial: https://www.furia.gg/ ou siga no X: @FURIA")
     return ConversationHandler.END
+
+async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    await update.message.reply_text('Conversa Cancelada.')
+    return ConversationHandler.END
+
+def main() -> None:
+    application = Application.builder().token('8119855628:AAF-gvahskdXg9TlFVmSovLPsya7uVHLSPA').build()
+    conv_handler = ConversationHandler(
+        entry_points=[CommandHandler('start', start)],
+        states={
+            NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, name)],
+            FAN_QUESTION: [MessageHandler(filters.TEXT & ~filters.COMMAND, fan_response)],
+        },
+        fallbacks=[CommandHandler('cancel', cancel)],
+    )
+    application.add_handler(conv_handler)
+    application.run_polling()
+
+if __name__ == '__main__':
+    main()
