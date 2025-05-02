@@ -50,12 +50,13 @@ async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     await query.answer()
     choice = query.data
     name = context.user_data['name']
+    logger.info(f"Resposta sobre ser fã: {choice}")
     if choice == 'fan_yes':
         await query.edit_message_text(f"Que Bom, {name}! A Super Fúria é incrível né? -_- Nosso time tem os melhores jogadores como o lendário FalleN e KSCERATO.")
     else:
         await query.edit_message_text(f"Tudo bem, {name}. Talvez você vire fã depois de assistir aos jogos deles. Eles são muito bons!")
     fact = random.choice(facts)
-    await query.message.reply_text(f"A propósito, você sabia que {fact}")
+    await query.message.reply_text(f"A propósito, você sabia que {fact}")   
     await query.message.reply_text("Quer saber mais sobre a Fúria? Confira o site oficial!: https://www.furia.gg/ ou siga no X: @FURIA")
     Keyboard = [
         [InlineKeyboardButton("Últimos resultados", callback_data='results')]
@@ -64,7 +65,8 @@ async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
         [InlineKeyboardButton("Nada, obrigado", callback_data='end')]
     ]
     reply_markup = InlineKeyboardMarkup(Keyboard)
-    await query.message.reply_text("O que você gostaria de saber sobre Fúria?", reply_markup=reply_markup)
+    logger.info("Enviando menu de opções")
+    await query.message.reply_text("O que você gostaria de saber sobre Fúria?", reply_markup=reply_markup)    
     return OPTIONS
 
 async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
