@@ -10,11 +10,11 @@ logger = logging.getLogger(__name__)
 NAME, FAN_QUESTION, OPTIONS = range(3)
 
 facts = [
-    "Fato Cúrioso A Super Furia foi fundada em agosto de 2017 no Brasil",
-    "Fato Cúrioso Nossa Furiosa é conhecida pelo seu estilo agressivo no CS:GO",
-    "Fato CúriosoNossa seleção tem times em diversos jogos incluindo CS:GO, VALORANT, "
-    "Fato Cúrioso O logotipo da Fúria é uma pantera, simbolizando agilidade e força."
-    "Fato Cúrioso Nossa Furia participou de vários torneios internacionais e tem uma grande base de fãs."
+    " A Super Furia foi fundada em agosto de 2017 no Brasil",
+    " Nossa Furiosa é conhecida pelo seu estilo agressivo no CS:GO",
+    "Nossa seleção tem times em diversos jogos incluindo CS:GO, VALORANT, "
+    " O logotipo da Fúria é uma pantera, simbolizando agilidade e força."
+    " Nossa Furia participou de vários torneios internacionais e tem uma grande base de fãs."
 ]
 
 def get_recent_matches():
