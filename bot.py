@@ -18,10 +18,9 @@ facts = [
     " Nossa Furia participou de vários torneios internacionais e tem uma grande base de fãs."
 ]
 
-def get_recent_matches():
-    return ["Jogo 1: Fúria 2-0 Time A", "Jogo 2: Fúria 1-1 Time B"]
 
-results = [
+def get_recent_matches():
+    return [
         "2025-04-20: Fúiria vs Team Liquid - Vitória 2-0",
         "2025-04-15: Fúria vs G2 Esports - Derrota 1-2",
         "2025-04-10: Fúria vs MIBR - Vitória 2-1",
@@ -61,10 +60,10 @@ async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     await query.message.reply_text(f"A propósito, você sabia que {fact}")   
     await query.message.reply_text("Quer saber mais sobre a Fúria? Confira o site oficial!: https://www.furia.gg/ ou siga no X: @FURIA")
     Keyboard = [
-        [InlineKeyboardButton("Últimos resultados", callback_data='results')]
+        [InlineKeyboardButton("Últimos resultados", callback_data='results')],
         [InlineKeyboardButton("Jogadores", callback_data='players')],
         [InlineKeyboardButton("Notícias", callback_data='news')],
-        [InlineKeyboardButton("Nada, obrigado", callback_data='end')]
+        [InlineKeyboardButton("Nada, obrigado", callback_data='end')],
     ]
     reply_markup = InlineKeyboardMarkup(Keyboard)
     logger.info("Enviando menu de opções")
@@ -78,8 +77,12 @@ async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     logger.info(f"Opção selecionada: {choice}")
     if choice == 'results':
         matches = get_recent_matches()
-        await query.edit_message_text(text="Os Jogadores atuais são: " + ", ".join(players))
+        await query.edit_message_text(text="Aqui estão os últimos resultados:\n" + "\n".join(matches))
+    elif choice == 'players':
+        await query.edit_message_text(text="Os jogadores atuais são: " + ", ".join(players))
     elif choice == 'news':
+        await query.edit_message_text(text="Confira as últimas notícias no site da Fúria: https://www.furia.gg/")
+    elif choice == 'end':
         await query.edit_message_text(text="Obrigado por conversar!")
         return ConversationHandler.END
     Keybord = [
