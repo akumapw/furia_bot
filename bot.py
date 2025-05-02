@@ -10,6 +10,14 @@ logger = logging.getLogger(__name__)
 
 NAME, FAN_QUESTION, OPTIONS = range(3)
 
+Highlights = {
+    "FalleN": "FalleN é conhecido por suas habilidades de AWP e liderança.",
+    "chelo": "Chelo é um rifler versátil com grande experiência em competições internacionais.",
+    "yuurih": "Yuurih é famoso por suas jogadas clutch e mira precisa.",
+    "KSCERATO": "KSCERATO é um dos melhores jogadores do Brasil, com destaque em vários torneios.",
+    "skullz": "Skullz é um jovem talento que já mostrou grande potencial na equipe."
+}
+
 facts = [
     " A Super Furia foi fundada em agosto de 2017 no Brasil",
     " Nossa Furiosa é conhecida pelo seu estilo agressivo no CS:GO",
@@ -53,7 +61,17 @@ async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     name = context.user_data['name']
     logger.info(f"Resposta sobre ser fã: {choice}")
     if choice == 'fan_yes':
-        await query.edit_message_text(f"Que Bom, FUR {name}! A Super Fúria é incrível né? -_- Nosso time tem os melhores jogadores como o lendário FalleN e KSCERATO.")
+        await query.edit_message_text(f"Que Bom, FUR {name}! A Super Fúria é incrível né? Qual é seu jogador favorito?")
+        Keyboard = [
+            [InlineKeyboardButton("FalleN", callback_data='player_FalleN')],
+            [InlineKeyboardButton("chelo", callback_data='player_chelo')],
+            [InlineKeyboardButton("yuurih", callback_data='player_yuurih')],
+            [InlineKeyboardButton("KSCERATO", callback_data='player_KSCERATO')],
+            [InlineKeyboardButton("skullz", callback_data='player_skullz')],
+        ]
+        reply_markup = InlineKeyboardMarkup(Keyboard)
+        await query.message.reply_text("Escolha um Jogador:", reply_markup=reply_markup)
+        return OPTIONS
     else:
         await query.edit_message_text(f"Tudo bem, {name}. Talvez você vire fã depois de assistir aos jogos deles. Eles são muito bons!")
     fact = random.choice(facts)
@@ -75,6 +93,11 @@ async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     await query.answer()
     choice = query.data
     logger.info(f"Opção selecionada: {choice}")
+    if choice.startswith('player_'):
+        player = choice.split('_')[1]
+        context.user_data['favorite_player'] = player
+        hihighlight = Highlights.get(player, "Informação não disponível.")
+        await query.edit_message_text(f"Você escolheu {player}! {hihighlight}" )
     if choice == 'results':
         matches = get_recent_matches()
         await query.edit_message_text(text="Aqui estão os últimos resultados:\n" + "\n".join(matches))
@@ -97,7 +120,7 @@ async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     return OPTIONS
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    await update.message.reply_text('Conversa Cancelada.')
+    await update.message.reply_text('Conversa Cancelada. Até mais!')
     return ConversationHandler.END
 
 def main() -> None:
