@@ -97,7 +97,8 @@ def main() -> None:
         entry_points=[CommandHandler('start', start)],
         states={
             NAME: [MessageHandler(filters.TEXT & ~filters.COMMAND, name)],
-            FAN_QUESTION: [MessageHandler(filters.TEXT & ~filters.COMMAND, fan_response)],
+            FAN_QUESTION: [CallbackQueryHandler(fan_response)],
+            OPTIONS: [CallbackQueryHandler(option_selected)],
         },
         fallbacks=[CommandHandler('cancel', cancel)],
     )
