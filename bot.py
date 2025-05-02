@@ -34,7 +34,13 @@ def get_recent_matches():
         "2025-04-10: Fúria vs MIBR - Vitória 2-1",
     ]
 
-players = ["FalleN", "Chelo", "Yuutih", "KSCERATO", "Skullz"]
+players = [
+    "FalleN: https://www.hltv.org/stats/players/2023/fallen",
+    "Chelo https://www.hltv.org/stats/players/10566/chelo",
+    "Yuurih: https://www.hltv.org/stats/players/12553/yuurih",
+    "KSCERATO: https://www.hltv.org/stats/players/15631/kscerato", 
+    "Skullz https://www.hltv.org/stats/players/18676/skullz"
+    ]
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await update.message.reply_text("Oi! Sou um grande fã da Fúria no CS:GO. Qual é o seu nome?")
@@ -104,7 +110,7 @@ async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     elif choice == 'players':
         await query.edit_message_text(text="Os jogadores atuais são: " + ", ".join(players))
     elif choice == 'news':
-        await query.edit_message_text(text="Confira as últimas notícias no site da Fúria: https://www.furia.gg/")
+        await query.edit_message_text(text="Confira as últimas notícias no site da Fúria: https://x.com/FURIA")
     elif choice == 'end':
         await query.edit_message_text(text="Obrigado por conversar!")
         return ConversationHandler.END
