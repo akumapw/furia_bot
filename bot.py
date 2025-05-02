@@ -11,11 +11,11 @@ logger = logging.getLogger(__name__)
 NAME, FAN_QUESTION, OPTIONS = range(3)
 
 Highlights = {
-    "FalleN": "FalleN é conhecido por suas habilidades de AWP e liderança. Aqui um clipe do lendário FalleN: https://www.youtube.com/watch?v=7CJ4UXefngA",
-    "chelo": "Chelo é um rifler versátil com grande experiência em competições internacionais. Aqui um clipe do nosso menino Chelo: https://www.youtube.com/watch?v=brAIvXM-9_w",
-    "yuurih": "Yuurih é famoso por suas jogadas clutch e mira precisa. Saca só esse clip..: https://www.youtube.com/watch?v=OviF7bKEBGQ",
-    "KSCERATO": "KSCERATO é um dos melhores jogadores do Brasil, com destaque em vários torneios. Saca Só esse compilado do KSCERATO: https://www.youtube.com/shorts/6AsDMhJkYNo",
-    "skullz": "Skullz é um jovem talento que já mostrou grande potencial na equipe. Se liga como nosso menino joga! https://www.youtube.com/shorts/6ccttAWzPPk"
+    "FalleN": "FalleN é conhecido por suas habilidades de AWP e liderança. Aqui um clipe do lendário FalleN:▶️ https://www.youtube.com/watch?v=7CJ4UXefngA",
+    "chelo": "Chelo é um rifler versátil com grande experiência em competições internacionais. Aqui um clipe do nosso menino Chelo:▶️ https://www.youtube.com/watch?v=brAIvXM-9_w",
+    "yuurih": "Yuurih é famoso por suas jogadas clutch e mira precisa. Saca só esse clip..:▶️ https://www.youtube.com/watch?v=OviF7bKEBGQ",
+    "KSCERATO": "KSCERATO é um dos melhores jogadores do Brasil, com destaque em vários torneios. Saca Só esse compilado do KSCERATO:▶️ https://www.youtube.com/shorts/6AsDMhJkYNo",
+    "skullz": "Skullz é um jovem talento que já mostrou grande potencial na equipe. Se liga como nosso menino joga!▶️ https://www.youtube.com/shorts/6ccttAWzPPk"
 }
 
 facts = [
@@ -43,15 +43,15 @@ players = [
     ]
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    await update.message.reply_text("Oi! Sou um grande fã da Fúria no CS:GO. Qual é o seu nome?")
+    await update.message.reply_text("🖤💛 Oi! Sou um bot FURIA. Qual é o seu nome?")
     return NAME
 
 async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data['name'] = update.message.text
     logger.info("Nome: %s", update.message.text)
     keyboard = [
-        [InlineKeyboardButton("Sim", callback_data='fan_yes')],
-        [InlineKeyboardButton("Não", callback_data='fan_no')]
+        [InlineKeyboardButton("Sim, sou FURIOSO!", callback_data='fan_yes')],
+        [InlineKeyboardButton("Ainda não", callback_data='fan_no')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
@@ -81,7 +81,7 @@ async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     else:
         await query.edit_message_text(f"Tudo bem, {name}. Talvez você vire fã depois de assistir aos jogos deles. Eles são muito bons!")
     fact = random.choice(facts)
-    await query.message.reply_text(f"A propósito, você sabia que {fact}")   
+    await query.message.reply_text(f"A propósito, você sabia que {fact}?")   
     await query.message.reply_text("Quer saber mais sobre a Fúria? Confira o site oficial!: https://www.furia.gg/ ou siga no X: @FURIA")
     Keyboard = [
         [InlineKeyboardButton("📅Últimos resultados", callback_data='results')],
@@ -106,13 +106,13 @@ async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         await query.edit_message_text(f"Você escolheu {player}! {hihighlight}" )
     if choice == 'results':
         matches = get_recent_matches()
-        await query.edit_message_text(text="Aqui estão os últimos resultados:\n" + "\n".join(matches))
+        await query.edit_message_text(text="📅 Aqui estão os últimos resultados:\n" + "\n".join(matches))
     elif choice == 'players':
-        await query.edit_message_text(text="Os jogadores atuais são: " + ", ".join(players))
+        await query.edit_message_text(text="🎮 Os jogadores atuais são: " + ", ".join(players))
     elif choice == 'news':
-        await query.edit_message_text(text="Confira as últimas notícias no site da Fúria: https://x.com/FURIA")
+        await query.edit_message_text(text="📰 Confira as últimas notícias no X da Fúria: https://x.com/FURIA")
     elif choice == 'end':
-        await query.edit_message_text(text="Obrigado por conversar!")
+        await query.edit_message_text(text="Obrigado por conversar! Até a próxima 🖤💛")
         return ConversationHandler.END
     Keybord = [
         [InlineKeyboardButton("Últimos resultados", callback_data='results')],
@@ -126,7 +126,7 @@ async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     return OPTIONS
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    await update.message.reply_text('Conversa Cancelada. Até mais!')
+    await update.message.reply_text('Obrigado por conversar! Até a próxima 🖤💛')
     return ConversationHandler.END
 
 def main() -> None:
