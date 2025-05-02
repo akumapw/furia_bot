@@ -67,6 +67,26 @@ async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     await query.message.reply_text("O que você gostaria de saber sobre Fúria?", reply_markup=reply_markup)
     return OPTIONS
 
+async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    query = update.callback_query
+    await query.answer()
+    choice = query.data
+    if choice == 'results':
+        matches = get_recent_matches()
+        await query.edit_message_text(text="Os Jogadores atuais são: " + ", ".join(players))
+    elif choice == 'news':
+        await query.edit_message_text(text="Obrigado por conversar!")
+        return ConversationHandler.END
+    Keybord = [
+        [InlineKeyboardButton("Últimos resultados", callback_data='results')],
+        [InlineKeyboardButton("Jogadores", callback_data='players')],
+        [InlineKeyboardButton("Notícias", callback_data='news')],
+        [InlineKeyboardButton("Nada, obrigado", callback_data='end')]
+    ]
+    reply_markup = InlineKeyboardMarkup(Keybord)
+    await query.message.reply_text("Mais alguma coisa?", reply_markup=reply_markup)
+    return OPTIONS
+
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await update.message.reply_text('Conversa Cancelada.')
     return ConversationHandler.END
