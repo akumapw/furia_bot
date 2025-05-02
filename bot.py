@@ -5,6 +5,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes, Conversation
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
+
 logger = logging.getLogger(__name__)
 
 NAME, FAN_QUESTION, OPTIONS = range(3)
@@ -32,7 +33,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 async def name(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data['name'] = update.message.text
-    logger.info("Nome: %s", update.message.text)
     logger.info("Nome: %s", update.message.text)
     keyboard = [
         [InlineKeyboardButton("Sim", callback_data='fan_yes')],
@@ -73,6 +73,7 @@ async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     query = update.callback_query
     await query.answer()
     choice = query.data
+    logger.info(f"Opção selecionada: {choice}")
     if choice == 'results':
         matches = get_recent_matches()
         await query.edit_message_text(text="Os Jogadores atuais são: " + ", ".join(players))
@@ -86,6 +87,7 @@ async def option_selected(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         [InlineKeyboardButton("Nada, obrigado", callback_data='end')]
     ]
     reply_markup = InlineKeyboardMarkup(Keybord)
+    logger.info("Enviando menu de opções novamente")
     await query.message.reply_text("Mais alguma coisa?", reply_markup=reply_markup)
     return OPTIONS
 
