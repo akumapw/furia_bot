@@ -53,17 +53,17 @@ async def fan_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     name = context.user_data['name']
     logger.info(f"Resposta sobre ser fã: {choice}")
     if choice == 'fan_yes':
-        await query.edit_message_text(f"Que Bom, {name}! A Super Fúria é incrível né? -_- Nosso time tem os melhores jogadores como o lendário FalleN e KSCERATO.")
+        await query.edit_message_text(f"Que Bom, FUR {name}! A Super Fúria é incrível né? -_- Nosso time tem os melhores jogadores como o lendário FalleN e KSCERATO.")
     else:
         await query.edit_message_text(f"Tudo bem, {name}. Talvez você vire fã depois de assistir aos jogos deles. Eles são muito bons!")
     fact = random.choice(facts)
     await query.message.reply_text(f"A propósito, você sabia que {fact}")   
     await query.message.reply_text("Quer saber mais sobre a Fúria? Confira o site oficial!: https://www.furia.gg/ ou siga no X: @FURIA")
     Keyboard = [
-        [InlineKeyboardButton("Últimos resultados", callback_data='results')],
-        [InlineKeyboardButton("Jogadores", callback_data='players')],
-        [InlineKeyboardButton("Notícias", callback_data='news')],
-        [InlineKeyboardButton("Nada, obrigado", callback_data='end')],
+        [InlineKeyboardButton("📅Últimos resultados", callback_data='results')],
+        [InlineKeyboardButton("🎮Jogadores", callback_data='players')],
+        [InlineKeyboardButton("📅Notícias", callback_data='news')],
+        [InlineKeyboardButton("❌Nada, obrigado", callback_data='end')],
     ]
     reply_markup = InlineKeyboardMarkup(Keyboard)
     logger.info("Enviando menu de opções")
