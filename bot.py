@@ -19,7 +19,9 @@ facts = [
 ]
 
 def get_recent_matches():
-    return [
+    return ["Jogo 1: Fúria 2-0 Time A", "Jogo 2: Fúria 1-1 Time B"]
+
+results = [
         "2025-04-20: Fúiria vs Team Liquid - Vitória 2-0",
         "2025-04-15: Fúria vs G2 Esports - Derrota 1-2",
         "2025-04-10: Fúria vs MIBR - Vitória 2-1",
