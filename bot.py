@@ -11,11 +11,11 @@ logger = logging.getLogger(__name__)
 NAME, FAN_QUESTION, OPTIONS = range(3)
 
 Highlights = {
-    "FalleN": "FalleN é conhecido por suas habilidades de AWP e liderança.",
-    "chelo": "Chelo é um rifler versátil com grande experiência em competições internacionais.",
-    "yuurih": "Yuurih é famoso por suas jogadas clutch e mira precisa.",
-    "KSCERATO": "KSCERATO é um dos melhores jogadores do Brasil, com destaque em vários torneios.",
-    "skullz": "Skullz é um jovem talento que já mostrou grande potencial na equipe."
+    "FalleN": "FalleN é conhecido por suas habilidades de AWP e liderança. Aqui um clipe do lendário FalleN: https://www.youtube.com/watch?v=7CJ4UXefngA",
+    "chelo": "Chelo é um rifler versátil com grande experiência em competições internacionais. Aqui um clipe do nosso menino Chelo: https://www.youtube.com/watch?v=brAIvXM-9_w",
+    "yuurih": "Yuurih é famoso por suas jogadas clutch e mira precisa. Saca só esse clip..: https://www.youtube.com/watch?v=OviF7bKEBGQ",
+    "KSCERATO": "KSCERATO é um dos melhores jogadores do Brasil, com destaque em vários torneios. Saca Só esse compilado do KSCERATO: https://www.youtube.com/shorts/6AsDMhJkYNo",
+    "skullz": "Skullz é um jovem talento que já mostrou grande potencial na equipe. Se liga como nosso menino joga! https://www.youtube.com/shorts/6ccttAWzPPk"
 }
 
 facts = [
